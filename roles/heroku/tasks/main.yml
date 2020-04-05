@@ -1,0 +1,5 @@
+---
+- name: Ensure heroku-cli is installed
+  snap:
+    name: heroku
+    classic: true

@@ -1,0 +1,24 @@
+---
+- name: Login to heroku using expect script
+  shell:
+    cmd: sudo expect roles/harlina_heroku/login.exp
+  tags:
+    - heroku_setup
+
+- name: Check if heroku app exists
+  command: bash -c "heroku apps | grep {{ app_name }}"
+  register: app_exists
+  ignore_errors: true
+  tags:
+    - heroku_setup
+
+- name: Create heroku App
+  when: app_exists is failed
+  command: bash -c "heroku create --region eu {{ app_name }}"
+  tags:
+    - heroku_setup
+
+- name: Set remote for repository
+  command: chdir=/home/{{ssh_key_user}}/{{app_dir}} heroku git:remote -a {{ app_name }}
+  tags:
+    - heroku_setup

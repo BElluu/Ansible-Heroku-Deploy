@@ -1,0 +1,8 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: ubuntuLatest
+    image: ubuntu:latest
+  - name: debianLatest
+    image: debian:latest

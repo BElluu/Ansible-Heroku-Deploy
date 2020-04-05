@@ -1,0 +1,21 @@
+#!/usr/bin/expect
+
+spawn heroku login -i
+
+sleep 1
+
+send "HEROKU_EMAIL";
+
+send "\r"
+
+sleep 1
+
+send "HEROKU_PASSWORD"
+
+sleep 1
+
+send "\r"
+
+sleep 2
+
+interact

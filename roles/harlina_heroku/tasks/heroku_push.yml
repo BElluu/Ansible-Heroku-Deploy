@@ -1,0 +1,25 @@
+---
+- name: Check if there are new changes
+  command: bash -c "cd /home/{{ssh_key_user}}/{{app_dir}} && git status | grep 'nothing to commit'"
+  register: change_exists
+  ignore_errors: true
+  tags:
+    - heroku_push
+
+- name: Heroku add
+  command: chdir=/home/{{ssh_key_user}}/{{app_dir}} git add .
+  when: change_exists is failed
+  tags:
+    - heroku_push
+
+- name: Heroku commit
+  command: chdir=/home/{{ssh_key_user}}/{{app_dir}} git commit -m '{{ commit_message }}'
+  when: change_exists is failed
+  tags:
+    - heroku_push
+
+- name: Heroku push
+  command: chdir=/home/{{ssh_key_user}}/{{app_dir}} git push heroku master
+  when: (change_exists is failed) or (cloned is changed)
+  tags:
+    - heroku_push

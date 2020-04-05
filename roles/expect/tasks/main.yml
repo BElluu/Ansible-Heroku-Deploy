@@ -1,0 +1,4 @@
+---
+- name: Ensure expect package is installed
+  apt:
+    name: expect

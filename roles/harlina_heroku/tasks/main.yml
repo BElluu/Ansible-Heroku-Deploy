@@ -1,0 +1,4 @@
+---
+- include: heroku_prepare_app.yml
+- include: heroku_setup.yml
+- include: heroku_push.yml

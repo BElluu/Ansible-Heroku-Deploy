@@ -1,0 +1,4 @@
+---
+- name: Ensure snap package is installed
+  apt:
+    name: snap
